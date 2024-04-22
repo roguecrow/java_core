@@ -1,5 +1,8 @@
 package com.emp.details;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class InputsValidator {
 	
 	public boolean intInputChecker(int number) {
@@ -50,5 +53,15 @@ public class InputsValidator {
 			return true;
 		}
 	}
+	public boolean dateInputChecker(String word) {
+	    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	    try {
+	        sdf.parse(word);
+	        return true; 
+	    } catch (ParseException e) {
+	        return false;
+	    }
+	}
+	
 
 }
