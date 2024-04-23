@@ -19,7 +19,7 @@ class LeaveStatus extends LeaveCalculator {
 
 	@Override
 	public boolean leaveStatusGenerator(int noOfLeaves) {
-		if(noOfLeaves > 4 && noOfLeaves >0) {
+		if(noOfLeaves > 4 && noOfLeaves > 0) {
 			return false;
 		}
 		else {
