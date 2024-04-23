@@ -65,6 +65,7 @@ public class LeaveInfo {
 		System.out.println("Employee ID :" + details.getEmployeeId()+
 	             "\nYour Request ID : "+ details.getRequestId() +
 	             "\nleave Type : "+details.getLeaveType()+"\nstartDate :" +date);
+		System.out.println("------------------------------------------------");
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -78,6 +79,16 @@ public class LeaveInfo {
 					"You are not eligible for "+ totalLeave + " days leaves";
 		System.out.println(leaveMessage);
 		printLeaveDetails(details);
+		FileGenerator fg = new FileGenerator();
+		LeaveDataSaver ld = new LeaveDataSaver();
+		fg.fileCreater();
+		ld.fileWriter(details,totalLeave);
+		int empLeaves = ld.fileReader(details);
+		if(status.totalLeaveForEmployee(empLeaves)) {
+			System.out.println("You have exceeded the leave limit."
+					+ "\nNo. of Leaves taken : "+empLeaves + 
+					"\nSo the leave you are about to take is going to be LOP(LOSS OF PAY)");
+		}
+		
 	}
-
 }

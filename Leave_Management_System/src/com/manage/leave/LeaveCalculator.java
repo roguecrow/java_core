@@ -27,4 +27,11 @@ class LeaveStatus extends LeaveCalculator {
 		}
 	}
 	
+	boolean totalLeaveForEmployee(int leaves) {
+		if(leaves >= 10) {
+			return true;
+		}
+		return false;
+	}
+	
 }
