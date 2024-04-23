@@ -9,18 +9,17 @@ public abstract class LeaveCalculator implements LeaveOperations{
 		long diffInMillis = end.getTime() - start.getTime();
 	    long diffInDays = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 	    int numberOfLeaves = (int) diffInDays + 1;
-	    System.out.println("total no. of leave :" + numberOfLeaves);
 	    return numberOfLeaves;
 	}
 	
 	public abstract boolean leaveStatusGenerator(int noOfLeaves);
 	}
 
-class LeaveStatus extends LeaveCalculator{
+class LeaveStatus extends LeaveCalculator {
 
 	@Override
 	public boolean leaveStatusGenerator(int noOfLeaves) {
-		if(noOfLeaves > 4) {
+		if(noOfLeaves > 4 && noOfLeaves >0) {
 			return false;
 		}
 		else {
