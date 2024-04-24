@@ -49,7 +49,7 @@ public class LeaveDataSaver {
 		        }  
 	}
 	
-	int fileReader(LeaveDetails details) {
+	int fileReaderForLeave(LeaveDetails details) {
 		int totalLeaves = 0;
 		try {  
             // Create f1 object of the file to read data  
@@ -59,7 +59,8 @@ public class LeaveDataSaver {
                 String fileData = dataReader.nextLine();
                 String [] fields = fileData.split(",");
                 String id = fields[0];
-                if(id.equals(details.getEmployeeId())) {
+                String type = fields[2];
+                if(id.equals(details.getEmployeeId()) && !type.equals(details.getLeaveType())) {
                 	totalLeaves += Integer.parseInt(fields[5]);
                 }
                 //System.out.println(fileData);  
@@ -70,5 +71,31 @@ public class LeaveDataSaver {
             exception.printStackTrace();  
         }
 		return totalLeaves;
+	}
+	boolean fileReaderForPermission(LeaveDetails details) {
+	    try {  
+	        File f1 = new File("C:\\Users\\babu3560\\eclipse-workspace\\Leave_Management_System\\leave_Data.txt");    
+	        Scanner dataReader = new Scanner(f1);
+	        while (dataReader.hasNextLine()) {  
+	        	System.out.println("came in while");
+	            String fileData = dataReader.nextLine();
+	            String[] fields = fileData.split(",");
+	            String date = fields[3];
+	            String id = fields[0];
+	            System.out.println(date);
+	            if (date.equals(details.getStartDate().toString()) && id.equals(details.getEmployeeId())) {
+	                System.out.println("came true");
+	                dataReader.close(); 
+	                return true;
+	            }
+	        }  
+	        System.out.println("came false");
+	        dataReader.close(); // Close the file reader here too
+
+	    } catch (FileNotFoundException exception) {  
+	        System.out.println("Unexpected error occurred!");  
+	        exception.printStackTrace();  
+	    }
+	    return false;
 	}
 }
