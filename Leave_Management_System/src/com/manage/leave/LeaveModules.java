@@ -97,6 +97,7 @@ public class LeaveModules {
 			System.out.println("-------------------------------------------");
 		}
 		else {
+			details.setStatus(true);
 			 System.out.println("total no. of leave :" + totalLeave);
 				String leaveMessage = status.leaveStatusGenerator(totalLeave) ? 
 						"You can take leave for " + totalLeave + " days" : 
@@ -113,7 +114,6 @@ public class LeaveModules {
 					+ "\nNo. of Leaves taken : "+empLeaves + 
 					"\nSo the leave you are about to take is going to be LOP(LOSS OF PAY)");
 		}
-		
 	}
 	
 	 void showHistory(String empId) {
