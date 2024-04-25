@@ -11,7 +11,7 @@ public class InfoValidator {
 		int num;
 		String str = null;
 		while(sc.hasNext()) {
-			if(n ==1) {
+			if(n == 1) {
 					num = sc.nextInt();
 					 if(!validate.intInputChecker(num)) {
 						 System.out.println("Enter a valid Integer :");

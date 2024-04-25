@@ -1,19 +1,25 @@
 package com.manage.leave;
 
-import java.io.Serializable;
+
 import java.util.Date;
 
-public class LeaveDetails implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class LeaveDetails {
 
 	String requestId;
     String employeeId;
-    Date startDate;
+    String username;
+	Date startDate;
     Date endDate;
     String leaveType;
     boolean status;
     
     
+    public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
     public String getRequestId() {
 		return requestId;
 	}

@@ -29,11 +29,13 @@ public class LeaveDataSaver {
 	void fileWriter(LeaveDetails details,int totalLeaves) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String data = details.getEmployeeId() + "," +
+                details.getUsername() + "," +
                 details.getRequestId() + "," +
                 details.getLeaveType() + "," +
                 dateFormat.format(details.getStartDate()) + "," +
                 dateFormat.format(details.getEndDate()) + "," +
-                totalLeaves + "," + details.isStatus() + "\n";
+                totalLeaves + "," + 
+                details.isStatus() + "\n";
 
 		 try {  
 		        FileWriter fwrite = new FileWriter("C:\\Users\\babu3560\\eclipse-workspace\\Leave_Management_System\\leave_Data.txt",true);  
@@ -59,9 +61,11 @@ public class LeaveDataSaver {
                 String fileData = dataReader.nextLine();
                 String [] fields = fileData.split(",");
                 String id = fields[0];
-                String type = fields[2];
-                if(id.equals(details.getEmployeeId()) && !type.equals(details.getLeaveType())) {
-                	totalLeaves += Integer.parseInt(fields[5]);
+                String type = fields[3];
+                String status = fields[7];
+                String defStatus = "true";
+                if(id.equals(details.getEmployeeId()) && !type.equals(details.getLeaveType()) && status.equals(defStatus)) {
+                	totalLeaves += Integer.parseInt(fields[6]);
                 }
                 //System.out.println(fileData);  
             }  
@@ -73,6 +77,8 @@ public class LeaveDataSaver {
 		return totalLeaves;
 	}
 	boolean fileReaderForPermission(LeaveDetails details) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Date format in the file
+
 	    try {  
 	        File f1 = new File("C:\\Users\\babu3560\\eclipse-workspace\\Leave_Management_System\\leave_Data.txt");    
 	        Scanner dataReader = new Scanner(f1);
@@ -80,10 +86,11 @@ public class LeaveDataSaver {
 	        	System.out.println("came in while");
 	            String fileData = dataReader.nextLine();
 	            String[] fields = fileData.split(",");
-	            String date = fields[3];
+	            String date = fields[4];
 	            String id = fields[0];
+	    		String dateFromUser = simpleDateFormat.format(details.getStartDate());
 	            System.out.println(date);
-	            if (date.equals(details.getStartDate().toString()) && id.equals(details.getEmployeeId())) {
+	            if (date.equals(dateFromUser) && id.equals(details.getEmployeeId())) {
 	                System.out.println("came true");
 	                dataReader.close(); 
 	                return true;
