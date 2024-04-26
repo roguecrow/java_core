@@ -16,7 +16,7 @@ class FileGenerator {
                        System.out.println("File " + f0.getName() + " is created successfully.");  
             } 
             else {  
-                       System.out.println("File is already exist in the directory.");  
+                      // System.out.println("File is already exist in the directory.");  
             }  
           } catch (IOException exception) {  
                    System.out.println("An unexpected error is occurred.");  
@@ -44,7 +44,7 @@ public class LeaveDataSaver {
 		   
 		        // Closing the stream  
 		        fwrite.close();   
-		        System.out.println("Leave details stored to file.");  
+		        //System.out.println("Leave details stored to file.");  
 		    } catch (IOException e) {  
 		        System.out.println("Unexpected error occurred");  
 		        e.printStackTrace();  
@@ -83,20 +83,20 @@ public class LeaveDataSaver {
 	        File f1 = new File("C:\\Users\\babu3560\\eclipse-workspace\\Leave_Management_System\\leave_Data.txt");    
 	        Scanner dataReader = new Scanner(f1);
 	        while (dataReader.hasNextLine()) {  
-	        	System.out.println("came in while");
+	        	//System.out.println("came in while");
 	            String fileData = dataReader.nextLine();
 	            String[] fields = fileData.split(",");
 	            String date = fields[4];
 	            String id = fields[0];
 	    		String dateFromUser = simpleDateFormat.format(details.getStartDate());
-	            System.out.println(date);
+	           // System.out.println(date);
 	            if (date.equals(dateFromUser) && id.equals(details.getEmployeeId())) {
-	                System.out.println("came true");
+	                //System.out.println("came true");
 	                dataReader.close(); 
 	                return true;
 	            }
 	        }  
-	        System.out.println("came false");
+	        //System.out.println("came false");
 	        dataReader.close(); // Close the file reader here too
 
 	    } catch (FileNotFoundException exception) {  
