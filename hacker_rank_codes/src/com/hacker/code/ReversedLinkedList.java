@@ -9,6 +9,7 @@ import java.util.Scanner;
     public Node(int d) {  
         data = d;  
     }  
+    
 }  
 
 public class ReversedLinkedList {
