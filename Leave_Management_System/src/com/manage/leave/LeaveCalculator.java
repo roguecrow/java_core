@@ -2,7 +2,7 @@ package com.manage.leave;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public abstract class LeaveCalculator implements LeaveOperations{
+public abstract class LeaveCalculator implements LeaveOperations {
 	
 	@Override
 	public int totalNoOfLeaves(Date start , Date end) {
