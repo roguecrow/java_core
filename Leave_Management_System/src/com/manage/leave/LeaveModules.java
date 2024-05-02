@@ -2,6 +2,7 @@ package com.manage.leave;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
@@ -75,10 +76,11 @@ public class LeaveModules {
 			details.setRequestId(requestIDGenerator());
 	}
 	
-	void applyLeave(LeaveDetails details) {
+	void applyLeave(LeaveDetails details) throws ClassNotFoundException, SQLException {
 		LeaveStatus status = new LeaveStatus();
 		FileGenerator fg = new FileGenerator();
 		LeaveDataSaver ld = new LeaveDataSaver();
+		ServerManager manage = new ServerManager();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
 
 		getLeaveDetails(details,status);
@@ -97,16 +99,20 @@ public class LeaveModules {
 			System.out.println("-------------------------------------------");
 		}
 		else {
-			details.setStatus(true);
 			 System.out.println("total no. of leave :" + totalLeave);
-				String leaveMessage = status.leaveStatusGenerator(totalLeave) ? 
-						"You can take leave for " + totalLeave + " days" : 
-							"You are not eligible for "+ totalLeave + " days leaves";
-				System.out.println(leaveMessage);
+			if(status.leaveStatusGenerator(totalLeave)) {
+				details.setStatus(true);
+				System.out.println("You can take leave for " + totalLeave + " days");
+			}
+			else {
+				details.setStatus(false);
+				System.out.println("You are not eligible for "+ totalLeave + " days leaves");
+			}
 		}
 		
 		printLeaveDetails(details);
 		fg.fileCreater();
+		manage.insertValues(details);
 		ld.fileWriter(details,totalLeave);
 		int empLeaves = ld.fileReaderForLeave(details);
 		if(status.totalLeaveForEmployee(empLeaves)) {

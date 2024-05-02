@@ -2,6 +2,7 @@ package com.manage.leave;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class LoginCred {
@@ -83,6 +84,32 @@ public class LoginCred {
 	        System.out.println("Unexpected error occurred!");
 	        exception.printStackTrace();
 	    }
+	    return false;
+	}
+	
+	boolean loginToYourAccountFromSer(LeaveDetails details, String id, Scanner sc) throws ClassNotFoundException, SQLException {
+	    InfoValidator val = new InfoValidator();
+		ServerManager manage = new ServerManager();
+
+	        if (!manage.findID(details,id)) {
+	            System.out.println("No data found. Please create an account to continue.");
+	            System.out.println("Press 1 to create an account:");
+	            if (Integer.parseInt(val.validator(1)) == 1) {
+	                System.out.println(" ------- Employee SignUp Page -------");
+	                System.out.println("Enter the username:");
+	                createEmpDetails(sc, 1, details);
+	                System.out.println("Enter the EmpId:");
+	                createEmpDetails(sc, 2, details);
+	                System.out.println("Account created successfully.");
+	                return true;
+	            } else {
+	                System.out.println("Quitting from the Application...");
+	                System.exit(0);
+	            }
+	        }
+	        else {
+	        	return true;
+	            }
 	    return false;
 	}
 	

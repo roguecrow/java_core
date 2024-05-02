@@ -10,5 +10,6 @@
 	<classpathentry exported="true" kind="src" path="/Employee_Details"/>
 	<classpathentry kind="src" path="/Taxi_Booking_System"/>
 	<classpathentry kind="src" path="/day_1 fundamentals"/>
+	<classpathentry kind="lib" path="D:/GitBackUp/mysql-connector-j-8.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
