@@ -1,10 +1,12 @@
-package com.manage.leave;
+package com.manage.util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
+import com.manage.model.LeaveDetails;
 
 public class ServerManager {
 	 ConnectionUtil connection;
@@ -14,7 +16,7 @@ public class ServerManager {
         connection = new ConnectionUtil();
         connect = connection.getConnection();
     }
-	void insertValues(LeaveDetails details) throws ClassNotFoundException, SQLException {
+	public void insertValues(LeaveDetails details) throws ClassNotFoundException, SQLException {
 	    String addEmployee = "INSERT INTO leave_details (emp_id, request_id, start_date, end_date, leave_type, status, username) "
 	               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 	    PreparedStatement prepareStatement = connect.prepareStatement(addEmployee);
@@ -36,7 +38,7 @@ public class ServerManager {
 	}
 
 	
-	void readvalues(String empId) throws SQLException, ClassNotFoundException {
+	public void readvalues(String empId) throws SQLException, ClassNotFoundException {
 		
 		String empLeaves = "select * from leave_details where emp_id ="+Integer.parseInt(empId);
 		PreparedStatement prepareStatement = connect.prepareStatement(empLeaves);
@@ -58,7 +60,7 @@ public class ServerManager {
         }
 	}
 	
-	void updateValues(LeaveDetails details) throws ClassNotFoundException, SQLException {
+	public void updateValues(LeaveDetails details) throws ClassNotFoundException, SQLException {
 	    String updateUsername = "UPDATE leave_details SET username = '" + details.getUsername() + "' WHERE emp_id = " + Integer.parseInt(details.getEmployeeId());
 		PreparedStatement prepareStatement = connect.prepareStatement(updateUsername);
 		int rows = prepareStatement.executeUpdate();
@@ -72,7 +74,7 @@ public class ServerManager {
 		
 	}
 	
-	void removeValues(LeaveDetails details) throws ClassNotFoundException, SQLException {
+	public void removeValues(LeaveDetails details) throws ClassNotFoundException, SQLException {
 		String deleteUser = "DELETE from leave_details where emp_id = "+details.getEmployeeId();
 		PreparedStatement prepareStatement = connect.prepareStatement(deleteUser);
 		int rows = prepareStatement.executeUpdate();
@@ -84,7 +86,9 @@ public class ServerManager {
 			System.out.println("failed to delete");
 		}
 	}
-	boolean findID(LeaveDetails details,String id) throws ClassNotFoundException, SQLException {
+	public boolean findID(LeaveDetails details,String id) throws ClassNotFoundException, SQLException {
+		System.out.println(id);
+		System.out.println(connect);
 		String findUser = "SELECT emp_id,username FROM leave_details WHERE emp_id = ?";
 	    PreparedStatement prepareStatement = connect.prepareStatement(findUser);
 	    prepareStatement.setInt(1, Integer.parseInt(id));

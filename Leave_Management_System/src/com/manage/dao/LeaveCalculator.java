@@ -1,8 +1,8 @@
-package com.manage.leave;
+package com.manage.dao;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public abstract class LeaveCalculator implements LeaveOperations {
+public abstract class LeaveCalculator implements LeaveOperationsDAO {
 	
 	@Override
 	public int totalNoOfLeaves(Date start , Date end) {
@@ -15,23 +15,4 @@ public abstract class LeaveCalculator implements LeaveOperations {
 	public abstract boolean leaveStatusGenerator(int noOfLeaves);
 	}
 
-class LeaveStatus extends LeaveCalculator {
 
-	@Override
-	public boolean leaveStatusGenerator(int noOfLeaves) {
-		if(noOfLeaves > 4 && noOfLeaves > 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	
-	boolean totalLeaveForEmployee(int leaves) {
-		if(leaves >= 10) {
-			return true;
-		}
-		return false;
-	}
-	
-}

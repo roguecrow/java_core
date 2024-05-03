@@ -1,4 +1,4 @@
-package com.manage.leave;
+package com.manage.files;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,26 +7,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
-class FileGenerator {
-	
-	void fileCreater() {
-		 try {   
-			    File f0 = new File("C:\\Users\\babu3560\\eclipse-workspace\\Leave_Management_System\\leave_Data.txt"); 
-            if (f0.createNewFile()) {  
-                       System.out.println("File " + f0.getName() + " is created successfully.");  
-            } 
-            else {  
-                      // System.out.println("File is already exist in the directory.");  
-            }  
-          } catch (IOException exception) {  
-                   System.out.println("An unexpected error is occurred.");  
-                   exception.printStackTrace();  
-       }      
-	}
-}
+import com.manage.model.LeaveDetails;
+
+
 public class LeaveDataSaver {
 	
-	void fileWriter(LeaveDetails details,int totalLeaves) {
+	public void fileWriter(LeaveDetails details,int totalLeaves) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String data = details.getEmployeeId() + "," +
                 details.getUsername() + "," +
@@ -51,7 +37,7 @@ public class LeaveDataSaver {
 		        }  
 	}
 	
-	int fileReaderForLeave(LeaveDetails details) {
+	public int fileReaderForLeave(LeaveDetails details) {
 		int totalLeaves = 0;
 		try {  
             // Create f1 object of the file to read data  
@@ -76,7 +62,7 @@ public class LeaveDataSaver {
         }
 		return totalLeaves;
 	}
-	boolean fileReaderForPermission(LeaveDetails details) {
+	public boolean fileReaderForPermission(LeaveDetails details) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Date format in the file
 
 	    try {  

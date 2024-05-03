@@ -1,9 +1,12 @@
-package com.manage.leave;
+package com.manage.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import com.manage.model.LeaveDetails;
+import com.manage.util.ServerManager;
 
 public class LoginCred {
 	boolean createEmpDetails(Scanner sc,int n,LeaveDetails details) {

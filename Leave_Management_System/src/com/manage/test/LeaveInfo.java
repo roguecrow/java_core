@@ -1,7 +1,10 @@
-package com.manage.leave;
+package com.manage.test;
 
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import com.manage.model.LeaveDetails;
+import com.manage.util.ServerManager;
 
 public class LeaveInfo {
 	
@@ -39,6 +42,7 @@ public class LeaveInfo {
 						System.out.println("are you sure you want to delete your accunt ?(y/n)");
 						if(val.validator(2).equalsIgnoreCase("y")) {
 							manage.removeValues(details);
+							System.out.println("Done !");
 						}
 						break;
 					}

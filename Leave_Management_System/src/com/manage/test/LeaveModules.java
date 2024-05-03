@@ -1,4 +1,4 @@
-package com.manage.leave;
+package com.manage.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +7,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 import java.util.Scanner;
+
+import com.manage.dao.LeaveStatus;
+import com.manage.files.FileGenerator;
+import com.manage.files.LeaveDataSaver;
+import com.manage.model.LeaveDetails;
+import com.manage.util.ServerManager;
 
 public class LeaveModules {
 	
@@ -65,7 +71,7 @@ public class LeaveModules {
 					e.printStackTrace();
 				}
 			}
-			int leave = status.totalNoOfLeaves(details.startDate, details.endDate);
+			int leave = status.totalNoOfLeaves(details.getStartDate(), details.getEndDate());
 			if(leave > 0) {
 				break;
 			}
@@ -78,13 +84,13 @@ public class LeaveModules {
 	
 	void applyLeave(LeaveDetails details) throws ClassNotFoundException, SQLException {
 		LeaveStatus status = new LeaveStatus();
-		FileGenerator fg = new FileGenerator();
+		//FileGenerator fg = new FileGenerator();
 		LeaveDataSaver ld = new LeaveDataSaver();
 		ServerManager manage = new ServerManager();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
 
 		getLeaveDetails(details,status);
-		int totalLeave = status.totalNoOfLeaves(details.startDate, details.endDate);
+		int totalLeave = status.totalNoOfLeaves(details.getStartDate(), details.getEndDate());
 		if(details.getLeaveType() == "Permission") {
 			if(!ld.fileReaderForPermission(details)) {
 				System.out.println("Permission has been granted !");
@@ -111,7 +117,7 @@ public class LeaveModules {
 		}
 		
 		printLeaveDetails(details);
-		fg.fileCreater();
+		//fg.fileCreater();
 		manage.insertValues(details);
 		ld.fileWriter(details,totalLeave);
 		int empLeaves = ld.fileReaderForLeave(details);

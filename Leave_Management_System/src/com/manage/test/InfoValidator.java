@@ -1,4 +1,4 @@
-package com.manage.leave;
+package com.manage.test;
 
 import java.util.Scanner;
 

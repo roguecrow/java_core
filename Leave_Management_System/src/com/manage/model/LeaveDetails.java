@@ -1,4 +1,4 @@
-package com.manage.leave;
+package com.manage.model;
 
 
 import java.util.Date;
