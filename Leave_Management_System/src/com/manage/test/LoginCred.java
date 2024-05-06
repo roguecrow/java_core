@@ -9,10 +9,10 @@ import com.manage.model.LeaveDetails;
 import com.manage.util.ServerManager;
 
 public class LoginCred {
-	boolean createEmpDetails(Scanner sc,int n,LeaveDetails details) {
+	boolean createEmpDetails(Scanner sc,int n,LeaveDetails details,ServerManager manage) throws ClassNotFoundException, SQLException {
 		String userInput,
 		 userNamePattern = "^[A-Za-z]+{8,20}$",
-		 empIdPattern = "^[0-9]+{6,8}$";
+		 empIdPattern = "^[0-9]{6,8}$";
 		while(sc.hasNext()) {
 			userInput = sc.nextLine();
 			if(n==1) {
@@ -25,8 +25,11 @@ public class LoginCred {
 			}
 			else {
 				if(userInput.matches(empIdPattern)) {
-					details.setEmployeeId(userInput);
-					break;
+					if(!manage.findID(details, userInput)) {
+						details.setEmployeeId(userInput);
+						break;
+					}	
+					System.out.println("Emp id already exists. \nPlease enter new one :");
 				}
 				System.out.println("Enter valid employee Id :");
 				 System.out.println("Atleast enter six numbers");
@@ -35,7 +38,7 @@ public class LoginCred {
 		return false;
 	}
 	
-	boolean loginToYourAccount(LeaveDetails details, String id, Scanner sc) {
+	boolean loginToYourAccount(LeaveDetails details, String id, Scanner sc) throws ClassNotFoundException, SQLException {
 	    InfoValidator val = new InfoValidator();
 	    try {
 	        File f1 = new File("C:\\Users\\babu3560\\eclipse-workspace\\Leave_Management_System\\leave_Data.txt");
@@ -45,9 +48,9 @@ public class LoginCred {
 	            if (Integer.parseInt(val.validator(1)) == 1) {
 	                System.out.println(" ------- Employee SignUp Page -------");
 	                System.out.println("Enter the username:");
-	                createEmpDetails(sc, 1, details);
+	                createEmpDetails(sc, 1, details,null);
 	                System.out.println("Enter the EmpId:");
-	                createEmpDetails(sc, 2, details);
+	                createEmpDetails(sc, 2, details,null);
 	                System.out.println("Account created successfully.");
 	                return true;
 	            } else {
@@ -73,9 +76,9 @@ public class LoginCred {
 	            if (Integer.parseInt(val.validator(1)) == 1) {
 	                System.out.println(" ------- Employee SignUp Page -------");
 	                System.out.println("Enter the username:");
-	                createEmpDetails(sc, 1, details);
+	                createEmpDetails(sc, 1, details,null);
 	                System.out.println("Enter the EmpId:");
-	                createEmpDetails(sc, 2, details);
+	                createEmpDetails(sc, 2, details,null);
 	                System.out.println("Account created successfully.");
 	                return true;
 	            } else {
@@ -100,9 +103,9 @@ public class LoginCred {
 	            if (Integer.parseInt(val.validator(1)) == 1) {
 	                System.out.println(" ------- Employee SignUp Page -------");
 	                System.out.println("Enter the username:");
-	                createEmpDetails(sc, 1, details);
+	                createEmpDetails(sc, 1, details,manage);
 	                System.out.println("Enter the EmpId:");
-	                createEmpDetails(sc, 2, details);
+	                createEmpDetails(sc, 2, details,manage);
 	                System.out.println("Account created successfully.");
 	                return true;
 	            } else {

@@ -73,6 +73,7 @@ public class LeaveModules {
 			}
 			int leave = status.totalNoOfLeaves(details.getStartDate(), details.getEndDate());
 			if(leave > 0) {
+				details.setNoOfLeaves(leave);
 				break;
 			}
 			else {
@@ -120,7 +121,8 @@ public class LeaveModules {
 		//fg.fileCreater();
 		manage.insertValues(details);
 		ld.fileWriter(details,totalLeave);
-		int empLeaves = ld.fileReaderForLeave(details);
+		//int empLeaves = ld.fileReaderForLeave(details);
+		int empLeaves = manage.leaveCalculator(details);
 		if(status.totalLeaveForEmployee(empLeaves)) {
 			System.out.println("You have exceeded the leave limit of 10."
 					+ "\nNo. of Leaves taken : "+empLeaves + 

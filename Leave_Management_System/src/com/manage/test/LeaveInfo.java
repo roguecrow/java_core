@@ -35,14 +35,15 @@ public class LeaveInfo {
 						break;
 					case 3 :
 		                System.out.println("Enter the username:");
-						cred.createEmpDetails(sc, 1, details);
+						cred.createEmpDetails(sc, 1, details,manage);
 						manage.updateValues(details);
 						break;
 					case 4 :
-						System.out.println("are you sure you want to delete your accunt ?(y/n)");
+						System.out.println("are you sure you want to delete your account ?(y/n)");
 						if(val.validator(2).equalsIgnoreCase("y")) {
 							manage.removeValues(details);
 							System.out.println("Done !");
+							main(null);
 						}
 						break;
 					}

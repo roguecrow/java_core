@@ -17,8 +17,8 @@ public class ServerManager {
         connect = connection.getConnection();
     }
 	public void insertValues(LeaveDetails details) throws ClassNotFoundException, SQLException {
-	    String addEmployee = "INSERT INTO leave_details (emp_id, request_id, start_date, end_date, leave_type, status, username) "
-	               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+	    String addEmployee = "INSERT INTO leave_details (emp_id, request_id, start_date, end_date, leave_type, status, username, no_of_leaves) "
+	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	    PreparedStatement prepareStatement = connect.prepareStatement(addEmployee);
 	    prepareStatement.setInt(1, Integer.parseInt(details.getEmployeeId()));
 	    prepareStatement.setString(2, details.getRequestId());
@@ -27,6 +27,7 @@ public class ServerManager {
 	    prepareStatement.setString(5, details.getLeaveType());
 	    prepareStatement.setBoolean(6, details.isStatus());
 	    prepareStatement.setString(7, details.getUsername());
+	    prepareStatement.setInt(8, details.getNoOfLeaves());
 	    int rows = prepareStatement.executeUpdate();
 	    System.out.println("affected row :" + rows);
 	    if(rows == 1) {
@@ -40,7 +41,7 @@ public class ServerManager {
 	
 	public void readvalues(String empId) throws SQLException, ClassNotFoundException {
 		
-		String empLeaves = "select * from leave_details where emp_id ="+Integer.parseInt(empId);
+		String empLeaves = "select * from leave_details where emp_id = '" + Integer.parseInt(empId) + "' and is_active = " + 1;
 		PreparedStatement prepareStatement = connect.prepareStatement(empLeaves);
 	    //prepareStatement.setInt(1, Integer.parseInt(details.getEmployeeId()));
 		ResultSet rows = prepareStatement.executeQuery();
@@ -75,11 +76,11 @@ public class ServerManager {
 	}
 	
 	public void removeValues(LeaveDetails details) throws ClassNotFoundException, SQLException {
-		String deleteUser = "DELETE from leave_details where emp_id = "+details.getEmployeeId();
+		String deleteUser = "UPDATE leave_details SET is_active = '"+ 0 +"' where emp_id = "+ details.getEmployeeId();
 		PreparedStatement prepareStatement = connect.prepareStatement(deleteUser);
 		int rows = prepareStatement.executeUpdate();
 		System.out.println(rows);
-		if(rows == 1) {
+		if(rows >= 1) {
 			System.out.println("Successfully deleted");
 		}
 		else {
@@ -87,11 +88,12 @@ public class ServerManager {
 		}
 	}
 	public boolean findID(LeaveDetails details,String id) throws ClassNotFoundException, SQLException {
-		System.out.println(id);
-		System.out.println(connect);
-		String findUser = "SELECT emp_id,username FROM leave_details WHERE emp_id = ?";
+		//System.out.println(id);
+		//System.out.println(connect);
+		String findUser = "SELECT emp_id,username FROM leave_details WHERE emp_id = ? and is_active = ?";
 	    PreparedStatement prepareStatement = connect.prepareStatement(findUser);
 	    prepareStatement.setInt(1, Integer.parseInt(id));
+	    prepareStatement.setBoolean(2, true);
 	    ResultSet resultSet = prepareStatement.executeQuery();
 	    
 	    if (resultSet.next()) {
@@ -104,6 +106,24 @@ public class ServerManager {
 	        return count > 0;
 	    }
 	    return false;
+	}
+	
+	public int leaveCalculator(LeaveDetails details) throws ClassNotFoundException, SQLException {
+		//System.out.println(id);
+		//System.out.println(connect);
+		int count = 0;
+		String leaveFinder = "SELECT no_of_leaves FROM leave_details WHERE emp_id = ? and is_active = ? and status = ?";
+	    PreparedStatement prepareStatement = connect.prepareStatement(leaveFinder);
+	    prepareStatement.setInt(1, Integer.parseInt(details.getEmployeeId()));
+	    prepareStatement.setBoolean(2, true);
+	    prepareStatement.setBoolean(3, true);
+	    ResultSet resultSet = prepareStatement.executeQuery();
+	    
+	    while(resultSet.next()) {
+	    	count = count + resultSet.getInt("no_of_leaves");
+	    }
+        System.out.println("total leaves taken :"+count);
+        return count;
 	}
 
 }

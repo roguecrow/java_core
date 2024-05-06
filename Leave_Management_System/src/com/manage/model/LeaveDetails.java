@@ -4,7 +4,7 @@ package com.manage.model;
 import java.util.Date;
 
 public class LeaveDetails {
-
+	int noOfLeaves;
 	String requestId;
     String employeeId;
     String username;
@@ -14,6 +14,12 @@ public class LeaveDetails {
     boolean status;
     
     
+	public int getNoOfLeaves() {
+		return noOfLeaves;
+	}
+	public void setNoOfLeaves(int noOfLeaves) {
+		this.noOfLeaves = noOfLeaves;
+	}
     public String getUsername() {
 		return username;
 	}
