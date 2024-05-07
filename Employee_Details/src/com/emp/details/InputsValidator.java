@@ -2,6 +2,7 @@ package com.emp.details;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class InputsValidator {
 	
@@ -56,10 +57,16 @@ public class InputsValidator {
 	public boolean dateInputChecker(String word) {
 	    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	    try {
-	        sdf.parse(word);
+	        Date inputDate = sdf.parse(word);
+	        Date currentDate = new Date(); 
+	        if (inputDate.before(sdf.parse(sdf.format(currentDate)))) {
+	        	System.out.println("Enter a current date or upcoming dates...");
+	            return false;
+	        }
+
 	        return true; 
 	    } catch (ParseException e) {
-	        return false;
+	        return false; 
 	    }
 	}
 	
