@@ -1,17 +1,32 @@
 package com.manage.test;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import com.emp.details.InputsValidator;
+import com.manage.dao.InvalidRangeException;
+
+
+ class CustomException  {  
+     void validate (int num) throws InvalidRangeException {    
+       if(num > 3 || num <= 0){  
+        throw new InvalidRangeException("range is out of bound ");    
+    }  
+       else {   
+        System.out.println("In Range");   
+        }   
+     }
+ }
 
 public class InfoValidator {
     String validator(int n) {
 		Scanner sc = new Scanner(System.in);
 		InputsValidator validate = new InputsValidator();
+		CustomException exp = new CustomException();
 		int num;
 		String str = null;
 		while(sc.hasNext()) {
-			if(n == 1) {
+			try {
+				if(n == 1) {
 					num = sc.nextInt();
 					 if(!validate.intInputChecker(num)) {
 						 System.out.println("Enter a valid Integer :");
@@ -47,6 +62,23 @@ public class InfoValidator {
 					 return str;
 				 }
 			}
+			else if(n==5) {
+				num = sc.nextInt();
+				 if(!validate.intInputChecker(num)) {
+					 System.out.println("Enter a valid Integer :");
+				 }
+				 else {
+					 try {
+						 exp.validate(num);
+						 return String.valueOf(num);
+					 }
+					 catch(InvalidRangeException ex){
+				            System.out.println("Caught the exception");  
+				            System.out.println("Exception occured: " + ex);  
+					 }
+				 }
+			}
+				
 			else {
 				str = sc.next();
 				 if(!validate.IfscCodeInputChecker(str)) {
@@ -56,6 +88,11 @@ public class InfoValidator {
 					 return str;
 				 }
 			}
+	        } catch (InputMismatchException e) {
+	            System.out.println("Invalid input. Please enter a valid input (Input Mismatch).");
+	            sc.nextLine();
+	        }
+			
 		}
 		return str;
 	}

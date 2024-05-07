@@ -41,7 +41,7 @@ public class LeaveModules {
 		for(int i = 0;i<leaveType.length;i++) {
 			System.out.println(i+1+" " + leaveType[i]);
 		}
-		int num = Integer.parseInt(val.validator(1));
+		int num = Integer.parseInt(val.validator(5));
 		details.setLeaveType(leaveType[num - 1]);
 		while (true) {
 			if(num == 3) {
@@ -119,7 +119,7 @@ public class LeaveModules {
 		
 		printLeaveDetails(details);
 		//fg.fileCreater();
-		manage.insertValues(details);
+		manage.insertEmpDetails(details);
 		ld.fileWriter(details,totalLeave);
 		//int empLeaves = ld.fileReaderForLeave(details);
 		int empLeaves = manage.leaveCalculator(details);

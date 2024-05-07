@@ -25,7 +25,7 @@ public class LoginCred {
 			}
 			else {
 				if(userInput.matches(empIdPattern)) {
-					if(!manage.findID(details, userInput)) {
+					if(!manage.findEmpID(details, userInput)) {
 						details.setEmployeeId(userInput);
 						break;
 					}	
@@ -97,7 +97,7 @@ public class LoginCred {
 	    InfoValidator val = new InfoValidator();
 		ServerManager manage = new ServerManager();
 
-	        if (!manage.findID(details,id)) {
+	        if (!manage.findEmpID(details,id)) {
 	            System.out.println("No data found. Please create an account to continue.");
 	            System.out.println("Press 1 to create an account:");
 	            if (Integer.parseInt(val.validator(1)) == 1) {

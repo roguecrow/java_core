@@ -1,6 +1,7 @@
 package com.manage.test;
 
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.manage.model.LeaveDetails;
@@ -19,10 +20,11 @@ public class LeaveInfo {
 		// TODO Auto-generated method stub
 		System.out.println("************Leave Management System************");
 		System.out.println("Please Enter the EmpId :");
+		
 		if(lc.loginToYourAccountFromSer(details,val.validator(1),sc)) {
 			while(true) {
 				System.out.println("Enter an Option (1 or 2) :");
-				System.out.println("1. Apply Leave \n2. Leave History \n3. Update User Name \n4. Delete employee leave history");
+				System.out.println("1. Apply Leave \n2. Leave History \n3. Update User Name \n4. Delete employee leave account");
 				int num = Integer.parseInt(val.validator(1));
 				if(num < 5 && num > 0) {
 					switch(num) {
@@ -30,18 +32,18 @@ public class LeaveInfo {
 						modules.applyLeave(details);
 						break;
 					case 2 :
-						manage.readvalues(details.getEmployeeId());
+						manage.readEmpDetails(details.getEmployeeId());
 						//modules.showHistory(details.getEmployeeId());
 						break;
 					case 3 :
 		                System.out.println("Enter the username:");
 						cred.createEmpDetails(sc, 1, details,manage);
-						manage.updateValues(details);
+						manage.updateUserName(details);
 						break;
 					case 4 :
 						System.out.println("are you sure you want to delete your account ?(y/n)");
 						if(val.validator(2).equalsIgnoreCase("y")) {
-							manage.removeValues(details);
+							manage.removeEmpAccount(details);
 							System.out.println("Done !");
 							main(null);
 						}
