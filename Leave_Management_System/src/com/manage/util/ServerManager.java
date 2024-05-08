@@ -16,6 +16,18 @@ public class ServerManager {
         connection = new ConnectionUtil();
         connect = connection.getConnection();
     }
+    
+	public int userRegisteration(LeaveDetails details) throws ClassNotFoundException, SQLException {
+	    String addEmployee = "INSERT INTO emp_credentials (emp_id, role_id, username)"
+	    		+ "VALUES (?, ?, ?)";
+	    PreparedStatement prepareStatement = connect.prepareStatement(addEmployee);
+	    prepareStatement.setInt(1,Integer.parseInt(details.getEmployeeId()));
+	    prepareStatement.setInt(2,details.getRoleId());
+	    prepareStatement.setString(3, details.getUsername());
+	    int rows = prepareStatement.executeUpdate();
+	    System.out.println("affected row :" + rows);
+		return rows;
+	}
 	public void insertEmpDetails(LeaveDetails details) throws ClassNotFoundException, SQLException {
 	    String addEmployee = "INSERT INTO leave_details (emp_id, request_id, start_date, end_date, leave_type, status, username, no_of_leaves) "
 	               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

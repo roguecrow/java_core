@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class LeaveDetails {
 	int noOfLeaves;
+	int roleId;
 	String requestId;
     String employeeId;
     String username;
@@ -14,6 +15,12 @@ public class LeaveDetails {
     boolean status;
     
     
+	public int getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
 	public int getNoOfLeaves() {
 		return noOfLeaves;
 	}

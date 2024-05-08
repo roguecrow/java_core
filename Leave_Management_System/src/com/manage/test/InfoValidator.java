@@ -6,7 +6,7 @@ import com.emp.details.InputsValidator;
 import com.manage.dao.InvalidRangeException;
 
 
- class CustomException  {  
+ class CustomRangeException  {  
      void validate (int num) throws InvalidRangeException {    
        if(num > 3 || num <= 0){  
         throw new InvalidRangeException("range is out of bound ");    
@@ -21,7 +21,7 @@ public class InfoValidator {
     String validator(int n) {
 		Scanner sc = new Scanner(System.in);
 		InputsValidator validate = new InputsValidator();
-		CustomException exp = new CustomException();
+		CustomRangeException exp = new CustomRangeException();
 		int num;
 		String str = null;
 		while(sc.hasNext()) {
@@ -78,6 +78,17 @@ public class InfoValidator {
 					 }
 				 }
 			}
+			else if(n == 6) {
+					num = sc.nextInt();
+					 if(!validate.intInputChecker(num)) {
+						 if(num > 2) {
+							 System.out.println("Enter a valid Integer :");
+						 }
+					 }
+					 else {
+						 return String.valueOf(num);
+					 }
+			}
 				
 			else {
 				str = sc.next();
@@ -96,5 +107,4 @@ public class InfoValidator {
 		}
 		return str;
 	}
-	
 }

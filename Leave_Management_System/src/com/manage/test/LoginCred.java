@@ -94,28 +94,40 @@ public class LoginCred {
 	}
 	
 	boolean loginToYourAccountFromSer(LeaveDetails details, String id, Scanner sc) throws ClassNotFoundException, SQLException {
+		int role;
 	    InfoValidator val = new InfoValidator();
 		ServerManager manage = new ServerManager();
 
 	        if (!manage.findEmpID(details,id)) {
 	            System.out.println("No data found. Please create an account to continue.");
 	            System.out.println("Press 1 to create an account:");
-	            if (Integer.parseInt(val.validator(1)) == 1) {
-	                System.out.println(" ------- Employee SignUp Page -------");
+	            if (Integer.parseInt(val.validator(1)) == 1) {      
+	            	System.out.println("Enter the role you are in the company : \n1.manager\n2.Employee");
+	            	role  = Integer.parseInt(val.validator(6));
+	            	if(role == 1) {
+	            		System.out.println(" ------- Manager SignUp Page -------");
+	            	}
+	            	else {
+		                System.out.println(" ------- Employee SignUp Page -------");
+	            	}
+	            	details.setRoleId(role);
 	                System.out.println("Enter the username:");
 	                createEmpDetails(sc, 1, details,manage);
 	                System.out.println("Enter the EmpId:");
 	                createEmpDetails(sc, 2, details,manage);
 	                System.out.println("Account created successfully.");
-	                return true;
+	                if(manage.userRegisteration(details) == 1) {
+	        			System.out.println("Successfully Created account in Credentials table");
+	        			return true;
+	        		}
+	        		else {
+	        			System.out.println("failed to creeate \nplease try again later !!!");
+	        		}
 	            } else {
 	                System.out.println("Quitting from the Application...");
 	                System.exit(0);
 	            }
 	        }
-	        else {
-	        	return true;
-	            }
 	    return false;
 	}
 	
