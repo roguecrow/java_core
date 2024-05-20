@@ -13,8 +13,22 @@ public class LeaveDetails {
     Date endDate;
     String leaveType;
     boolean status;
+	int deptId;
+    String DeptName;
     
     
+    public int getDeptId() {
+		return deptId;
+	}
+	public void setDeptId(int deptId) {
+		this.deptId = deptId;
+	}
+	public String getDeptName() {
+		return DeptName;
+	}
+	public void setDeptName(String deptName) {
+		DeptName = deptName;
+	}
 	public int getRoleId() {
 		return roleId;
 	}

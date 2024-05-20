@@ -3,6 +3,8 @@ package com.manage.test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.manage.model.LeaveDetails;
@@ -95,6 +97,12 @@ public class LoginCred {
 	
 	boolean loginToYourAccountFromSer(LeaveDetails details, String id, Scanner sc) throws ClassNotFoundException, SQLException {
 		int role;
+		Map<Integer, String> departmentMap = new HashMap<>();
+        // Adding department details to the HashMap
+        departmentMap.put(1, "Sales");
+        departmentMap.put(2, "Marketing");
+        departmentMap.put(3, "Human Resources");
+        departmentMap.put(4, "Finance");
 	    InfoValidator val = new InfoValidator();
 		ServerManager manage = new ServerManager();
 
@@ -115,20 +123,19 @@ public class LoginCred {
 	                createEmpDetails(sc, 1, details,manage);
 	                System.out.println("Enter the EmpId:");
 	                createEmpDetails(sc, 2, details,manage);
+	                System.out.println("Select your Dept: \n1.Sales\n2.Marketing\n3.Human Resources\n4.Finance");
+	                int deptId = Integer.parseInt(val.validator(1));
+	                details.setDeptId(deptId);
+	                details.setDeptName(departmentMap.get(deptId));
+	                manage.userRegisteration(details);
 	                System.out.println("Account created successfully.");
-	                if(manage.userRegisteration(details) == 1) {
-	        			System.out.println("Successfully Created account in Credentials table");
-	        			return true;
-	        		}
-	        		else {
-	        			System.out.println("failed to creeate \nplease try again later !!!");
-	        		}
+	                return true;
 	            } else {
 	                System.out.println("Quitting from the Application...");
 	                System.exit(0);
 	            }
 	        }
-	    return false;
+	    return true;
 	}
 	
 }

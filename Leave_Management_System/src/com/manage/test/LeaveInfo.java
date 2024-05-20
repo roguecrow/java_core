@@ -22,6 +22,7 @@ public class LeaveInfo {
 		System.out.println("Please Enter the EmpId :");
 		
 		if(lc.loginToYourAccountFromSer(details,val.validator(1),sc)) {
+			System.out.println("Username -" + details.getUsername() + "emp-id -" + details.getEmployeeId());
 			while(true) {
 				System.out.println("Enter an Option (1 or 2) :");
 				System.out.println("1. Apply Leave \n2. Leave History \n3. Update User Name \n4. Delete employee leave account");
@@ -34,7 +35,7 @@ public class LeaveInfo {
 					case 2 :
 						manage.readEmpDetails(details.getEmployeeId());
 						//modules.showHistory(details.getEmployeeId());
-						break;
+						break; 
 					case 3 :
 		                System.out.println("Enter the username:");
 						cred.createEmpDetails(sc, 1, details,manage);
